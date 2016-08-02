@@ -5,9 +5,6 @@ botData = {}
 botData[1] = {}
 botData[2] = {}
 
--- TODO
---	*allow "Forward", "Back" strings
---	*maybe "LP","MP" etc?
 function setButton(playerSlot,button,state)
 	pad[string.format("P%i %s",playerSlot,button)] = state
 end
