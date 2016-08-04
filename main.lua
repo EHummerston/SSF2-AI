@@ -12,8 +12,9 @@ function setButton(playerSlot,button,state)
 	pad[string.format("P%i %s",playerSlot,button)] = state
 end
 
--- returns true if player #(playerSlot) is facing right use 'getDirectionButton
---	(playerSlot) for inputs, this function is not often relevant
+-- returns true if player #(playerSlot) is facing right
+--	use 'getDirectionButton (playerSlot) for inputs,
+--	this function is not often relevant
 function isFacingRight (playerSlot)
 	if playerSlot % 2 == 1 then	--playerSlot is odd (1)
 		return memory.read_u8(0x5F3) == 0x40
@@ -90,11 +91,12 @@ function hasFireball (playerSlot)
 	end
 end
 
--- BEGIN
---	THE REAL SHIT
+-- script begins here
 
 bertInit(1)
 bertInit(2)
+
+-- main loop
 
 while true do
 
