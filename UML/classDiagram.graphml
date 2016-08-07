@@ -79,7 +79,7 @@
 + getDistance() : unsigned byte
 + isAttacking() : Boolean
 + hasFireball() : Boolean
-+ Player( bot : Bot, pad : Joypad )<y:LabelModel>
++ Player( bot : Bot )<y:LabelModel>
               <y:ErdAttributesNodeLabelModel/>
             </y:LabelModel>
             <y:ModelParameter>
