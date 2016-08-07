@@ -1,0 +1,28 @@
+main.lua
+	setbutton()
+		-allow "Forward", "Back" strings
+		-maybe "LP","MP" etc?
+	
+Bert
+	Fix full-screen normals in place of fireballs
+		-test with back input before fireball motion
+	Variable fireball speeds
+		-also fewer fireballs maybe
+	Different anti-airs
+		-shoryuken and normals
+	Jumping sometimes
+		-trying for crossups
+		-randy jump-ins from neutral?
+		-escape from corner
+	Frame delay / memory
+	Throws
+		-direction based on stage position
+		-what's the difference between throws?
+	Wtf is tatsu for
+		-fireball counter when close enough?
+	Learning?
+	Mid-range neutral options
+		-fireball
+		-low-forward -> red fireball
+		-jump in
+		-sweep
