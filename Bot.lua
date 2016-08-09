@@ -4,25 +4,25 @@ Bot_mt = {__index = Bot}
 
 -- Base class method new
 function Bot:create(playerSlot)
-  local newInst = {}
-  newInst.playerSlot = playerSlot
-  newInst.i = 0
-  newInst.newAttack = true
-  newInst.walkTimer = 0
-  newInst.pad = {}
-  setmetatable(newInst, Bot_mt)
-  return newInst
+	local newInst = {}
+	newInst.playerSlot = playerSlot
+	newInst.i = 0
+	newInst.newAttack = true
+	newInst.walkTimer = 0
+	newInst.pad = {}
+	setmetatable(newInst, Bot_mt)
+	return newInst
 end
 
 -- Derived class methods
 
 function Bot:getPlayerSlot()
-  return self.playerSlot
+	return self.playerSlot
 end
 
 -- This function will get overwritten by a subclass.
 function Bot:advance()
-  return
+	return
 end
 
 
@@ -68,8 +68,8 @@ end
 
 -- Returns true if the opponent is crouching.
 function Bot:isOpponentCrouching()
-  enemyPlayerSlot = self.playerSlot + 1
-  if enemyPlayerSlot % 2 == 1 then
+	enemyPlayerSlot = self.playerSlot + 1
+	if enemyPlayerSlot % 2 == 1 then
 		return memory.read_u8(0x544) == 0x1
 	else
 		return memory.read_u8(0x784) == 0x1
@@ -120,12 +120,12 @@ end
 
 -- Returns true if the bot's opponent is performing an attack.
 function Bot:isOpponentAttacking()
-  enemyPlayerSlot = self.playerSlot + 1
-  if enemyPlayerSlot % 2 == 1 then
-    return memory.read_u8(0x5E9) == 0x1
-  else
-    return memory.read_u8(0x829) == 0x1
-  end
+	enemyPlayerSlot = self.playerSlot + 1
+	if enemyPlayerSlot % 2 == 1 then
+		return memory.read_u8(0x5E9) == 0x1
+	else
+		return memory.read_u8(0x829) == 0x1
+  	end
 end
 
 -- returns true if given player has a projectile active
@@ -139,9 +139,9 @@ function Bot:hasFireball()
 end
 
 function Bot:resetPad()
-  self.pad = {}
+	self.pad = {}
 end
 
 function Bot:getPad()
-  return self.pad
+	return self.pad
 end
