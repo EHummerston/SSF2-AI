@@ -12,9 +12,11 @@ while true do
 	bertOne:resetPad()
 	bertTwo:resetPad()
 	
-	bertOne:advance()
-	bertTwo:advance()
-
+	if memory.read_u8(0x10083) == 0x0 then --if the game is in a fight state
+		bertOne:advance()
+		bertTwo:advance()
+	end
+	
 	pads = bertOne:getPad()
 	bertTwoPad = bertTwo:getPad()
 	for k,v in pairs(bertTwoPad) do
