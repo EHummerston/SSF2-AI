@@ -1,5 +1,6 @@
 
 require("Bert")
+require("draw")
 -- add 'require' bits here
 
 bertOne = Bert:create(1)
@@ -24,6 +25,10 @@ while true do
 	end
 	joypad.set(pads)
 
+	drawPads()
+	drawName(1, "Bert")
+	drawName(2, "Bert")
+	
 	emu.frameadvance()
 	
 end
