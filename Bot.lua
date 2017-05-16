@@ -1,5 +1,5 @@
 -- Meta class
-Bot = {i = 0, newAttack = true, walkTimer = 0, playerSlot = 1, pad = {}}
+Bot = {i = 0, newAttack = true, walkTimer = 0, playerSlot = 1, pad = {}, name = "", action = ""}
 Bot_mt = {__index = Bot}
 
 -- Base class method new
@@ -10,6 +10,8 @@ function Bot:create(playerSlot)
 	newInst.newAttack = true
 	newInst.walkTimer = 0
 	newInst.pad = {}
+	newInst.name = ""
+	newInst.action = ""
 	setmetatable(newInst, Bot_mt)
 	return newInst
 end
@@ -155,4 +157,12 @@ end
 
 function Bot:getPad()
 	return self.pad
+end
+
+function Bot:getName()
+	return self.name
+end
+
+function Bot:getAction()
+	return self.action
 end

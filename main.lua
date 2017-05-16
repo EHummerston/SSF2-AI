@@ -29,15 +29,15 @@ while true do
 
 	draw.drawPad(1)
 	draw.drawPad(2)
-	draw.drawName(1, "Bert")
-	draw.drawName(2, "Bert")
+	draw.drawName(1, bertOne:getName())
+	draw.drawName(2, bertTwo:getName())
 	
 	if(debugUI) then
 		gui.pixelText(0,0,"atk " .. tostring(memory.read_u8(0x5E9) == 0x1))
 		gui.pixelText(132,0,"atk " .. tostring(memory.read_u8(0x829) == 0x1))
 		
-		gui.pixelText(0,8,"fb  " .. tostring(memory.read_u8(0x5F7) ~= 0))
-		gui.pixelText(132,8,"fb  " .. tostring(memory.read_u8(0x837) ~= 0))
+		gui.pixelText(0,8,bertOne:getAction())
+		gui.pixelText(132,8,bertTwo:getAction())
 	end
 	
 	emu.frameadvance()
