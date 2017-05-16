@@ -110,6 +110,8 @@ end
 --	includes the startup, active and recovery frames of all (afaik) attacks
 --	does not include whether or not a fireball is active, only whether they are
 --	in a fireball animation
+-- this value actually represents Proximity Blocking:
+--	if the enemy presses backward, they will block instead of walking backward
 function Bot:isAttacking ()
 	if self.playerSlot % 2 == 1 then
 		return memory.read_u8(0x5E9) == 0x1
