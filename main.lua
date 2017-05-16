@@ -25,9 +25,9 @@ while true do
 	end
 	joypad.set(pads)
 
-	drawPads()
-	drawName(1, "Bert")
-	drawName(2, "Bert")
+	draw.drawPads()
+	draw.drawName(1, "Bert")
+	draw.drawName(2, "Bert")
 	
 	emu.frameadvance()
 	
