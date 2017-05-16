@@ -8,21 +8,21 @@ draw.red = 0xffd62100
 draw.orange = 0xfff75a3a
 draw.text = 0xfff78746
 
-function draw.drawPads()	
-	for i = 1, 2, 1 do
-		local bX = ((i==1) and 79 or 151)
+function draw.drawPad(playerSlot)	
+	for playerSlot = 1, 2, 1 do
+		local bX = ((playerSlot==1) and 79 or 151)
 		local bY = 47
 		gui.drawEllipse(bX,bY,8,8, draw.black)
 		local pY = 0
-		if (joypad.get(i)["Up"]) then
+		if (joypad.get(playerSlot)["Up"]) then
 			pY = -1
-		elseif (joypad.get(i)["Down"]) then
+		elseif (joypad.get(playerSlot )["Down"]) then
 			pY = 1
 		end
 		local pX = 0
-		if (joypad.get(i)["Left"]) then
+		if (joypad.get(playerSlot )["Left"]) then
 			pX = -1
-		elseif (joypad.get(i)["Right"]) then
+		elseif (joypad.get(playerSlot )["Right"]) then
 			pX = 1
 		end
 		gui.drawEllipse(bX+3,bY + 3, 2, 2, draw.black, draw.black)
@@ -32,12 +32,12 @@ function draw.drawPads()
 		gui.drawPixel(bX+4+(pX*3),bY + 2 + (pY*3), draw.yellow)
 		
 		bX = bX + 12
-		if (joypad.get(i)["Y"]) then
+		if (joypad.get(playerSlot )["Y"]) then
 			gui.drawEllipse(bX, bY, 3, 3, draw.blue, draw.blue)
 		else
 			gui.drawEllipse(bX, bY, 3, 3, draw.black, draw.black)
 		end
-		if (joypad.get(i)["B"]) then
+		if (joypad.get(playerSlot )["B"]) then
 			gui.drawEllipse(bX, bY+5, 3, 3, draw.blue, draw.blue)
 		else
 			gui.drawEllipse(bX, bY+5, 3, 3, draw.black, draw.black)
@@ -45,24 +45,24 @@ function draw.drawPads()
 		
 		bY = bY - 1
 		bX = bX + 5
-		if (joypad.get(i)["X"]) then
+		if (joypad.get(playerSlot )["X"]) then
 			gui.drawEllipse(bX, bY, 3, 3, draw.yellow, draw.yellow)
 		else
 			gui.drawEllipse(bX, bY, 3, 3, draw.black, draw.black)
 		end
-		if (joypad.get(i)["A"]) then
+		if (joypad.get(playerSlot )["A"]) then
 			gui.drawEllipse(bX, bY+5, 3, 3, draw.yellow, draw.yellow)
 		else
 			gui.drawEllipse(bX, bY+5, 3, 3, draw.black, draw.black)
 		end
 		
 		bX = bX + 5
-		if (joypad.get(i)["L"]) then
+		if (joypad.get(playerSlot )["L"]) then
 			gui.drawEllipse(bX, bY, 3, 3, draw.red, draw.red)
 		else
 			gui.drawEllipse(bX, bY, 3, 3, draw.black, draw.black)
 		end
-		if (joypad.get(i)["R"]) then
+		if (joypad.get(playerSlot )["R"]) then
 			gui.drawEllipse(bX, bY+5, 3, 3, draw.red, draw.red)
 		else
 			gui.drawEllipse(bX, bY+5, 3, 3, draw.black, draw.black)

@@ -3,6 +3,8 @@ require("Bert")
 require("draw")
 -- add 'require' bits here
 
+debugUI = true
+
 bertOne = Bert:create(1)
 bertTwo = Bert:create(2)
 
@@ -25,9 +27,18 @@ while true do
 	end
 	joypad.set(pads)
 
-	draw.drawPads()
+	draw.drawPad(1)
+	draw.drawPad(2)
 	draw.drawName(1, "Bert")
 	draw.drawName(2, "Bert")
+	
+	if(debugUI) then
+		gui.pixelText(0,0,"atk " .. tostring(memory.read_u8(0x5E9) == 0x1))
+		gui.pixelText(132,0,"atk " .. tostring(memory.read_u8(0x829) == 0x1))
+		
+		gui.pixelText(0,8,"fb  " .. tostring(memory.read_u8(0x5F7) ~= 0))
+		gui.pixelText(132,8,"fb  " .. tostring(memory.read_u8(0x837) ~= 0))
+	end
 	
 	emu.frameadvance()
 	

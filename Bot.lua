@@ -134,9 +134,18 @@ end
 --	(they can't make another)
 function Bot:hasFireball()
 	if self.playerSlot % 2 == 1 then
-		return memory.read_u8(0x5F8) == 0x1
+		return memory.read_u8(0x5F7) ~= 0
 	else
-		return memory.read_u8(0x838) == 0x1
+		return memory.read_u8(0x837) ~= 0
+	end
+end
+
+function Bot:hasOpponentFireball()
+	enemyPlayerSlot = self.playerSlot + 1
+	if enemyPlayerSlot % 2 == 1 then
+		return memory.read_u8(0x5F7) ~= 0
+	else
+		return memory.read_u8(0x837) ~= 0
 	end
 end
 

@@ -40,6 +40,8 @@ function Bert:advance()
 	if self:isOpponentAttacking() and not self:isOpponentAir() then	--if enemy is attacking and on the ground
 		if self.newAttack and self:getDistance() < 0x24 then --if enemy is close and they weren't attacking last frame
 			self:dragonPunch()
+		elseif self:hasOpponentFireball() then --counter fireball with the same
+			self:fireball()
 		else	--they are far away or this isn't the first frame of the attack
 			self.newAttack = false
 			self:setButton(self:getDirectionButton(false),true)
