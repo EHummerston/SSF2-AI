@@ -1,6 +1,6 @@
 
 require("Bert")
-require("draw")
+require("sfdraw")
 -- add 'require' bits here
 
 debugUI = true
@@ -27,10 +27,10 @@ while true do
 	end
 	joypad.set(pads)
 
-	draw.drawPad(1)
-	draw.drawPad(2)
-	draw.drawName(1, bertOne:getName())
-	draw.drawName(2, bertTwo:getName())
+	sfdraw.sfdraw.Pad(1)
+	sfdraw.sfdraw.Pad(2)
+	sfdraw.sfdraw.Name(1, bertOne:getName())
+	sfdraw.sfdraw.Name(2, bertTwo:getName())
 	
 	if(debugUI) then
 		gui.pixelText(0,0,"atk " .. tostring(memory.read_u8(0x5E9) == 0x1))
