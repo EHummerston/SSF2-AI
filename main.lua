@@ -27,10 +27,10 @@ while true do
 	end
 	joypad.set(pads)
 
-	sfdraw.sfdraw.Pad(1)
-	sfdraw.sfdraw.Pad(2)
-	sfdraw.sfdraw.Name(1, bertOne:getName())
-	sfdraw.sfdraw.Name(2, bertTwo:getName())
+	sfdraw.drawPad(1)
+	sfdraw.drawPad(2)
+	sfdraw.drawName(1, bertOne:getName())
+	sfdraw.drawName(2, bertTwo:getName())
 	
 	if(debugUI) then
 		gui.pixelText(0,0,"atk " .. tostring(memory.read_u8(0x5E9) == 0x1))
