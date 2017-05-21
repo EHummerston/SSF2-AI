@@ -1,8 +1,15 @@
+-----------------------------------------------------------------------------
+-- An implementation of the SSF2 AI which aims to be a simple algorithm which
+-- mimics a human Ryu player.
+-- 
+-- 2017 Edward Hummerston
+-----------------------------------------------------------------------------
+
 require("Bot")
 require("inherits")
 
-Bert = inheritsFrom(Bot)
--- Derived class methods
+Bert = inheritsFrom(Bot)   -- function from "inherits" code
+
 
 function Bert:init()
    self.name = "Bert"
@@ -37,6 +44,8 @@ function Bert:dragonPunch()
       self.i = -1
    end
 end
+
+-- Derived class methods
 
 function Bert:advance()
    self.i = self.i + 1
