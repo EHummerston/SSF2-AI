@@ -10,33 +10,48 @@ require("inherits")
 
 Bert = inheritsFrom(Bot)   -- function from "inherits" code
 
-
+-----------------------------------------------------------------------------
+-- Override inherited constructor.
+-- 
+-- 2017 Edward Hummerston
+-----------------------------------------------------------------------------
+-- NOT YET FUNCTIONAL
 function Bert:init()
    self.name = "Bert"
 end
    
+-----------------------------------------------------------------------------
+-- Sets the controller state in order to repeatedly complete a Hadoken
+-- command.
+-----------------------------------------------------------------------------
 function Bert:fireball()
-   if self.i == 0 then
+   if self.i == 0 then  -- buffer a back input
       self:setButton(self:getDirectionButton(false),true)
-   elseif self.i == 1 then
+   elseif self.i == 1 then -- down
       self:setButton("Down",true)
-   elseif self.i == 2 then
+   elseif self.i == 2 then -- down forward
       self:setButton("Down",true)
       self:setButton(self:getDirectionButton(true),true)
-   elseif self.i == 3 then   
+   elseif self.i == 3 then -- forward + punch
       self:setButton(self:getDirectionButton(true),true)
       self:setButton("X",true)
-   elseif self.i > 45 then
+      
+   -- Long buffer to prevent accidental Shoryuken commands
+   elseif self.i > 6 then
       self.i = -1
    end
 end
 
+-----------------------------------------------------------------------------
+-- Sets the controller state in order to repeatedly complete a Shoryuken
+-- command.
+-----------------------------------------------------------------------------
 function Bert:dragonPunch()
-   if self.i == 0 then
+   if self.i == 0 then  -- forward
       self:setButton(self:getDirectionButton(true),true)
-   elseif self.i == 1 then
+   elseif self.i == 1 then -- down
       self:setButton("Down",true)
-   elseif self.i == 2 then   
+   elseif self.i == 2 then -- down forward + punch
       self:setButton("Down",true)
       self:setButton(self:getDirectionButton(true),true)
       self:setButton("L",true)
@@ -45,8 +60,10 @@ function Bert:dragonPunch()
    end
 end
 
--- Derived class methods
-
+-----------------------------------------------------------------------------
+-- Interprets the current game state and determines which action is
+-- appropriate and thus what inputs the controller should be set to.
+-----------------------------------------------------------------------------
 function Bert:advance()
    self.i = self.i + 1
    if self:isOpponentAttacking() and not self:isOpponentAir() then   -- if enemy is attacking and on the ground
