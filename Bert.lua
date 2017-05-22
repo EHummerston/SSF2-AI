@@ -37,7 +37,7 @@ function Bert:fireball()
       self:setButton("X",true)
       
    -- Long buffer to prevent accidental Shoryuken commands
-   elseif self.i > 6 then
+   elseif self.i > 30 then
       self.i = -1
    end
 end
