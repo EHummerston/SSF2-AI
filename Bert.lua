@@ -25,19 +25,16 @@ end
 -- command.
 -----------------------------------------------------------------------------
 function Bert:fireball()
-   if self.i == 0 then  -- buffer a back input
-      self:setButton(self:getDirectionButton(false),true)
-   elseif self.i == 1 then -- down
+   if self.i == 0 then -- down
       self:setButton("Down",true)
-   elseif self.i == 2 then -- down forward
+   elseif self.i == 1 then -- down forward
       self:setButton("Down",true)
       self:setButton(self:getDirectionButton(true),true)
-   elseif self.i == 3 then -- forward + punch
+   elseif self.i == 2 then -- forward + punch
       self:setButton(self:getDirectionButton(true),true)
-      self:setButton("X",true)
-      
-   -- Long buffer to prevent accidental Shoryuken commands
-   elseif self.i > 30 then
+      self:setButton("X",true)   
+   -- Long buffer to prevent accidental Shoryuken commands 30?
+   elseif self.i > 15 then
       self.i = -1
    end
 end
@@ -65,7 +62,10 @@ end
 -- appropriate and thus what inputs the controller should be set to.
 -----------------------------------------------------------------------------
 function Bert:advance()
+   self.name = "Bert"   -- Temporary fix until I work out how to constructor
+   
    self.i = self.i + 1
+ 
    if self:isOpponentAttacking() and not self:isOpponentAir() then   -- if enemy is attacking and on the ground
       if self.newAttack and self:getDistance() < 0x24 then  -- if enemy is close and they weren't attacking last frame
          self:dragonPunch()
@@ -77,6 +77,7 @@ function Bert:advance()
          self.newAttack = false
          self:setButton(self:getDirectionButton(false),true)
          self.action = "block"
+         self.i = -1
          if self:isOpponentCrouching() then  -- if enemy is crouching
             self:setButton("Down",true)
             self.action = "low block"
@@ -91,6 +92,7 @@ function Bert:advance()
          else  -- p2 is close on the ground
             self:setButton(self:getDirectionButton(false),true)
             self.action = "walk back"
+            self.i = -1
          end
       else  -- they are far away
          if not self:hasFireball() and not self:isOpponentAir() then -- there isn't a fireball and p2 is on the ground
@@ -104,7 +106,8 @@ function Bert:advance()
          else  -- we have a fireball out or the enemy is in the air
             self:setButton(self:getDirectionButton(true),true)
             self.action = "walk forward"
-            self.walkTimer = 10
+            self.walkTimer = 15
+            self.i = -1
          end
       end
    end
