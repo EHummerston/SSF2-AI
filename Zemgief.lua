@@ -1,332 +1,125 @@
-local frame = 0
-local state = 0
+require("Bot")
 
-local P1Pos = 0
-local P2Pos = 0
-local face = 0
-local ES = 0
-local CR = 0
+Zemgief = {}
+setmetatable(Zemgief, {__index = Bot})
+local Zemgief_mt = {__index = Zemgief}
 
-local pad = {}
-
-		
-local function SPDLeft()
-
-	if frame == 1 then 
-	
-		pad["P1 Down"] = false
-		pad["P1 Up"] = false
-		pad["P1 Right"] = false
-		pad["P1 Left"] = true
-		pad["P1 Y"] = false
-	
-	elseif frame == 2 then 
-	
-		pad["P1 Down"] = true
-		pad["P1 Up"] = false
-		pad["P1 Right"] = false
-		pad["P1 Left"] = false
-		pad["P1 Y"] = false
-
-		
-	elseif frame == 3 then 
-	
-		pad["P1 Down"] = false
-		pad["P1 Up"] = false
-		pad["P1 Right"] = true
-		pad["P1 Left"] = false
-		pad["P1 Y"] = false
-		
-	elseif frame == 4 then 
-	
-		pad["P1 Down"] = false
-		pad["P1 Up"] = true
-		pad["P1 Right"] = false
-		pad["P1 Left"] = false
-		pad["P1 Y"] = true
-		
-		
-	elseif frame == 10 then 
-	
-		pad["P1 Down"] = false
-		pad["P1 Up"] = false
-		pad["P1 Right"] = false
-		pad["P1 Left"] = false
-		pad["P1 Y"] = false
-		
-	elseif frame > 35 then
-		frame = 0
-		state = 0
-		return
-	end
-	
-	joypad.set( pad )
-
-end
-local function SPDRight()
-
-	if frame == 1 then 
-
-		pad["P1 Down"] = false
-		pad["P1 Up"] = false
-		pad["P1 Right"] = true
-		pad["P1 Left"] = false
-		pad["P1 Y"] = false
-	
-	elseif frame == 2 then 
-	
-		pad["P1 Down"] = true
-		pad["P1 Up"] = false
-		pad["P1 Right"] = false
-		pad["P1 Left"] = false
-		pad["P1 Y"] = false
-
-		
-	elseif frame == 3 then 
-	
-		pad["P1 Down"] = false
-		pad["P1 Up"] = false
-		pad["P1 Right"] = false
-		pad["P1 Left"] = true
-		pad["P1 Y"] = false
-
-		
-	elseif frame == 4 then 
-	
-		pad["P1 Down"] = false
-		pad["P1 Up"] = true
-		pad["P1 Right"] = false
-		pad["P1 Left"] = false
-		pad["P1 Y"] = true
-		
-	elseif frame == 10 then 
-	
-		pad["P1 Down"] = false
-		pad["P1 Up"] = false
-		pad["P1 Right"] = false
-		pad["P1 Left"] = false
-		pad["P1 Y"] = false
-		
-	elseif frame > 35 then
-		frame = 0
-		state = 0
-		return
-	end
-	
-	joypad.set( pad )
-
+function Zemgief.new(playerSlot)
+   local self = Bot.new(playerSlot)
+   setmetatable(self, Zemgief_mt)
+   
+   self.name = "ZEMgief"
+   
+   self.frame = 0
+   self.state = 0
+   
+   return self
 end
 
-local function AntiAir()
-
-	if frame == 1 then 
-
-		pad["P1 Left"] = false
-		pad["P1 Right"] = false
-		pad["P1 Up"] = true
-	
-	elseif frame == 2 then
+function Zemgief:spd()
+   self.action = "SPD"
+	if self.frame == 1 then -- forward
+		self:setButton(self:getDirectionButton(true),true)
 		
-		pad["P1 Up"] = true
-		pad["P1 L"] = true
-	
-	else
-	
-		pad["P1 Up"] = false
-		pad["P1 L"] = false
+	elseif self.frame == 2 then   -- down
+      self:setButton("Down",true)
 		
-		frame = 0
-		state = 0
-
+	elseif self.frame == 3 then   --back
+		self:setButton(self:getDirectionButton(false),true)
+		
+	elseif self.frame <= 10 then  -- up + LP
+      self:setButton("Up",true)
+      self:setButton("Y",true)		
+			
+	elseif self.frame > 35 then
+		self.frame = 0
+		self.state = 0
+      
 	end
-	
-	joypad.set( pad )
-
 end
 
-local function BlockRight()
-
-	ES = memory.read_u8(0x829)
+function Zemgief:antiAir()
+   self.action = "Anti Air"
+	if self.frame == 1 then 
+		self:setButton("Up",true)
 	
-	if ES ~= 1 then
-		
-		pad["P1 Left"] = false
-		
-		frame = 0
-		state = 0
-		
-	else
+	elseif self.frame == 2 then
+		self:setButton("Up",true)
+		self:setButton("L",true)
 	
-		CR = memory.read_u8(0x784)
-	
-		if CR == 1 then
-		
-			pad["P1 Right"] = false
-			pad["P1 Left"] = true
-			pad["P1 Down"] = true
-		
-		else
-		
-			pad["P1 Right"] = false
-			pad["P1 Left"] = true
-		
-		end
+	else		
+		self.frame = 0
+		self.state = 0
 
 	end
-	
-	joypad.set( pad )
-
-end
-local function BlockLeft()
-
-	ES = memory.read_u8(0x829)
-	
-	if ES ~= 1 then
-		
-		pad["P1 Right"] = false
-		
-		frame = 0
-		state = 0
-
-	else
-	
-		CR = memory.read_u8(0x784)
-
-		if CR == 1 then
-		
-			pad["P1 Right"] = true
-			pad["P1 Left"] = false
-			pad["P1 Down"] = true
-		
-		else
-		
-			pad["P1 Right"] = true
-			pad["P1 Left"] = false
-		
-		end
-		
-	end
-	
-	joypad.set( pad )
-
 end
 
-local function Block()
-
-	face = memory.read_u8(0x5F3)
-
-	if face == 0x40 then
-	
-		BlockRight()
-	
-	else
-	
-		BlockLeft()
-	
-	end
-	
+function Zemgief:block()
+   self.action = "Block"
+   if self:isOpponentAttacking() then
+      self:setButton(self:getDirectionButton(false),true)
+      if(self:isOpponentCrouching()) then
+         self:setButton("Down",true)
+      end
+   else
+      self.frame = 0
+		self.state = 0
+   end
 end
-local function SPD()
 
-	ES = memory.read_u8(0x829)
-
-	if ES == 1 then
+function Zemgief:near()
+   
+	if self:isOpponentAttacking() then
 		
-		frame = 1
-		state = 2
+		self.frame = 1
+		self.state = 2
 		
-		Block()
+		self:block()
 		
 		return
 
 	end
 
-	face = memory.read_u8(0x5F3)
-
-	if face == 0x40 then
-	
-		SPDRight()
-	
-	else
-	
-		SPDLeft()
-	
-	end
+	self:spd()
 	
 end
-local function Idle()
 
-	ES = memory.read_u8(0x829)
+function Zemgief:idle()
 
-	if ES == 1 then
+	if self:isOpponentAttacking() then
 		
-		frame = 1
-		state = 2
+		self.frame = 1
+		self.state = 2
 		
-		Block()
+		self:block()
 		
 		return
 
 	end
 
-P1Pos = memory.read_u16_le(0x617)
-P2Pos = memory.read_u16_le(0x857)
+	if self:getDistance() > 50 then 
+		self:setButton(self:getDirectionButton(true),true)
+      self.action = "Walk Forward"
 
-dist = memory.read_u8(0x5EB)
-
-	if dist > 50 then 
-	
-		face = memory.read_u8(0x5F3)
-	
-		if face == 0x40 then
-		
-			pad["P1 Up"] = false
-			pad["P1 Down"] = false	
-			pad["P1 Right"] = true
-			pad["P1 Left"] = false
-			pad["P1 Y"] = false
-		
+	else	
+		if self:isOpponentAir() then
+         self:antiAir()
 		else
-		
-			pad["P1 Up"] = false
-			pad["P1 Down"] = false
-			pad["P1 Right"] = false
-			pad["P1 Left"] = true
-			pad["P1 Y"] = false
-		
-		end
-
-		joypad.set( pad )
-	
-	else
-	
-		CR = memory.read_u8(0x788)
-		
-		if CR == 1 then
-		AntiAir()
-		else
-		frame = 0
-		state = 1
+         self.frame = 0
+         self.state = 1
 		end
 	end
 	
 end
 
-
-function giefAdvance()
-	if state == 0 then
-		Idle()
-	elseif state == 1 then
-		SPD()
-	elseif state == 2 then
-		Block()
+function Zemgief:advance()
+   self.frame = self.frame + 1
+   
+	if self.state == 0 then
+		self:idle()
+	elseif self.state == 1 then
+		self:near()
+	elseif self.state == 2 then
+		self:block()
 	end
-
-	if not emu.islagged() then
-		frame = frame + 1
-		
-		else
-		print("LAGG")
-	end
-
 end
