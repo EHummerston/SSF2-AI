@@ -1,19 +1,31 @@
--- Meta class
-Bot = {i = 0, newAttack = true, walkTimer = 0, playerSlot = 1, pad = {}, name = "", action = ""}
-Bot_mt = {__index = Bot}
+-----------------------------------------------------------------------------
+-- An abstract class for Computer-Player algorithms to inherit from.
+-- Implements functions to be used by the main program and also within
+-- child classes.
+-- 
+-- 2017 Edward Hummerston
+-----------------------------------------------------------------------------
 
--- Base class method new
-function Bot:create(playerSlot)
-	local newInst = {}
-	newInst.playerSlot = playerSlot
-	newInst.i = 0
-	newInst.newAttack = true
-	newInst.walkTimer = 0
-	newInst.pad = {}
-	newInst.name = ""
-	newInst.action = ""
-	setmetatable(newInst, Bot_mt)
-	return newInst
+Bot = {}
+local Bot_mt = {__index = Bot}
+
+-----------------------------------------------------------------------------
+-- Constructor
+--
+-- @param  playerSlot    The controller port to represent that the algorithm
+--                       will occupy
+-- @return self          An instance of the created object
+-----------------------------------------------------------------------------
+function Bot.new(playerSlot)
+	local self = {}
+   setmetatable(self, Bot_mt)
+   
+	self.playerSlot = playerSlot
+	self.pad = {}
+	self.name = ""
+	self.action = ""
+	
+	return self
 end
 
 -- Derived class methods
