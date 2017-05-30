@@ -10,7 +10,7 @@ Bot = {}
 local Bot_mt = {__index = Bot}
 
 -----------------------------------------------------------------------------
--- Constructor
+-- Constructor, initialises class variables.
 --
 -- @param  playerSlot    The controller port to represent that the algorithm
 --                       will occupy

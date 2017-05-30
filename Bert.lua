@@ -42,7 +42,7 @@ function Bert:fireball()
    elseif self.i == 2 then -- forward + punch
       self:setButton(self:getDirectionButton(true),true)
       self:setButton("X",true)   
-   -- Long buffer to prevent accidental Shoryuken commands 30?
+   -- Long buffer to prevent accidental Shoryuken commands
    elseif self.i > 15 then
       self.i = -1
    end
