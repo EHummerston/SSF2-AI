@@ -6,20 +6,29 @@
 -----------------------------------------------------------------------------
 
 require("Bot")
-require("inherits")
 
-Bert = inheritsFrom(Bot)   -- function from "inherits" code
+Bert = {}
+setmetatable(Bert, {__index = Bot})
+local Bert_mt = {__index = Bert}
 
 -----------------------------------------------------------------------------
 -- Override inherited constructor.
--- 
--- 2017 Edward Hummerston
+--
+-- @param  playerSlot    The controller port to represent that the algorithm
+--                       will occupy
+-- @return self          An instance of the created object
 -----------------------------------------------------------------------------
--- NOT YET FUNCTIONAL
-function Bert:init()
-   self.name = "Bert"
-end
+function Bert.new(playerSlot)
+   local self = Bot.new(playerSlot)
+   setmetatable(self, Bert_mt)
    
+   self.name = "Bert"
+   self.i = 0
+   self.walkTimer = 0
+   self.newAttack = true
+   return self
+end
+
 -----------------------------------------------------------------------------
 -- Sets the controller state in order to repeatedly complete a Hadoken
 -- command.
@@ -61,9 +70,7 @@ end
 -- Interprets the current game state and determines which action is
 -- appropriate and thus what inputs the controller should be set to.
 -----------------------------------------------------------------------------
-function Bert:advance()
-   self.name = "Bert"   -- Temporary fix until I work out how to constructor
-   
+function Bert:advance()   
    self.i = self.i + 1
  
    if self:isOpponentAttacking() and not self:isOpponentAir() then   -- if enemy is attacking and on the ground
