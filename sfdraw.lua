@@ -104,10 +104,10 @@ end
 -- @param  name          The string to be drawn.
 -----------------------------------------------------------------------------
 function sfdraw.drawName(playerSlot, name)
-   local nameX = ((playerSlot==1) and 30 or 227)
+   local nameX = ((playerSlot==1) and 30 or 226)
    local textAlign = ((playerSlot==1) and "left" or "right")
    
    -- text shadow sfdraw.n first
-   gui.drawText(nameX+1,57, name, sfdraw.black, 0x00000000, 14, null, "bold", textAlign, "bottom")
-   gui.drawText(nameX,56, name, sfdraw.yellow, 0x00000000, 14, null, "bold", textAlign, "bottom")
+   gui.drawText(nameX+1,57, name, sfdraw.black, 0x00000000, 12, "Times New Roman", "bold", textAlign, "bottom")
+   gui.drawText(nameX,56, name, sfdraw.yellow, 0x00000000, 12, "Times New Roman", "bold", textAlign, "bottom")
 end
