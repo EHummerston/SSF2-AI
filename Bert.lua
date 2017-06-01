@@ -14,9 +14,9 @@ local Bert_mt = {__index = Bert}
 -----------------------------------------------------------------------------
 -- Override inherited constructor.
 --
--- @param  playerSlot    The controller port to represent that the algorithm
+-- @param playerSlot     The controller port to represent that the algorithm
 --                       will occupy
--- @return self          An instance of the created object
+-- @return               An instance of the created object
 -----------------------------------------------------------------------------
 function Bert.new(playerSlot)
    local self = Bot.new(playerSlot)
