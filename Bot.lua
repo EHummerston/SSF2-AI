@@ -94,7 +94,8 @@ function Bot:setButton(button,state)
 end
 
 -----------------------------------------------------------------------------
--- Sets a given button on the class' controller to a given state.
+-- Returns true if the player's facing direction is to the right. Used by
+-- Bot:getDirectionButton().
 --
 -- @param button         The joypad button to be manipulated.
 -- @param state          Boolean state for the button to be set to.

@@ -8,7 +8,7 @@
 
 require("Bert")
 require("Zemgief")
-require("sfdraw")
+require("SFDraw")
 
 debugUI = true -- console outputs and extra text within emulator space
 
@@ -60,14 +60,14 @@ while true do  -- loop once per frame
 
    -- p1 info
    if(botOne ~= null) then
-      sfdraw.drawName(1, botOne:getName())
-      sfdraw.drawPad(1)
+      SFDraw.drawName(1, botOne:getName())
+      SFDraw.drawPad(1)
    end
    
    -- p2 info
    if(botTwo ~= null) then
-      sfdraw.drawName(2, botTwo:getName())
-      sfdraw.drawPad(2)
+      SFDraw.drawName(2, botTwo:getName())
+      SFDraw.drawPad(2)
    end
    
    if(debugUI) then
