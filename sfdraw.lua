@@ -5,15 +5,15 @@
 -- 2017 Edward Hummerston
 -----------------------------------------------------------------------------
 
-sfdraw = {}
+SFDraw = {}
 
-sfdraw.white = 0xffe6e6e6
-sfdraw.black = 0xff193a7b
-sfdraw.blue = 0xff319cb5
-sfdraw.yellow = 0xfff7b552
-sfdraw.red = 0xffd62100
-sfdraw.orange = 0xfff75a3a
-sfdraw.text = 0xfff78746
+SFDraw.WHITE = 0xffe6e6e6
+SFDraw.BLACK = 0xff193a7b
+SFDraw.BLUE = 0xff319cb5
+SFDraw.YELLOW = 0xfff7b552
+SFDraw.RED = 0xffd62100
+SFDraw.ORANGE = 0xfff75a3a
+SFDraw.TEXT = 0xfff78746
 
 -----------------------------------------------------------------------------
 -- Draws a controller's input state to the emulator screen in an arcade
@@ -22,11 +22,11 @@ sfdraw.text = 0xfff78746
 -- @param  playerSlot    The controller port to represent. (Also determines
 --                       drawn position.)
 -----------------------------------------------------------------------------
-function sfdraw.drawPad(playerSlot)
+function SFDraw.drawPad(playerSlot)
    local bX = ((playerSlot==1) and 79 or 151)   -- left side of control display
    local bY = 47  -- top of control display
-   gui.drawEllipse(bX,bY,8,8, sfdraw.black) -- circle of joystick base
-   gui.drawEllipse(bX+3,bY + 3, 2, 2, sfdraw.black, sfdraw.black)  -- joystick shaft base
+   gui.drawEllipse(bX,bY,8,8, SFDraw.BLACK) -- circle of joystick base
+   gui.drawEllipse(bX+3,bY + 3, 2, 2, SFDraw.BLACK, SFDraw.BLACK)  -- joystick shaft base
    
    local pY = 0   -- player Y-axis input
    if (joypad.get(playerSlot)["Up"]) then
@@ -40,57 +40,57 @@ function sfdraw.drawPad(playerSlot)
    elseif (joypad.get(playerSlot )["Right"]) then
       pX = 1
    end
-   gui.drawPixel(bX+4 + pX,bY + 4 + pY, sfdraw.black)   -- joystick shaft
-   gui.drawEllipse(bX+2+(pX*3),bY + 2 + (pY*3), 4, 4, sfdraw.orange, sfdraw.orange)  -- joystick head
+   gui.drawPixel(bX+4 + pX,bY + 4 + pY, SFDraw.BLACK)   -- joystick shaft
+   gui.drawEllipse(bX+2+(pX*3),bY + 2 + (pY*3), 4, 4, SFDraw.ORANGE, SFDraw.ORANGE)  -- joystick head
    
    -- some pixels to add sphere effect
-   gui.drawPixel(bX+5+(pX*3),bY + 3 + (pY*3), sfdraw.white)
-   gui.drawPixel(bX+4+(pX*3),bY + 2 + (pY*3), sfdraw.yellow)
+   gui.drawPixel(bX+5+(pX*3),bY + 3 + (pY*3), SFDraw.WHITE)
+   gui.drawPixel(bX+4+(pX*3),bY + 2 + (pY*3), SFDraw.YELLOW)
    
    bX = bX + 12
    -- Y/Light Punch
    if (joypad.get(playerSlot )["Y"]) then
-      gui.drawEllipse(bX, bY, 3, 3, sfdraw.blue, sfdraw.blue)
+      gui.drawEllipse(bX, bY, 3, 3, SFDraw.BLUE, SFDraw.BLUE)
    else
-      gui.drawEllipse(bX, bY, 3, 3, sfdraw.black, sfdraw.black)
+      gui.drawEllipse(bX, bY, 3, 3, SFDraw.BLACK, SFDraw.BLACK)
    end
    
    -- B/Light Kick
    if (joypad.get(playerSlot )["B"]) then
-      gui.drawEllipse(bX, bY+5, 3, 3, sfdraw.blue, sfdraw.blue)
+      gui.drawEllipse(bX, bY+5, 3, 3, SFDraw.BLUE, SFDraw.BLUE)
    else
-      gui.drawEllipse(bX, bY+5, 3, 3, sfdraw.black, sfdraw.black)
+      gui.drawEllipse(bX, bY+5, 3, 3, SFDraw.BLACK, SFDraw.BLACK)
    end
    
    bY = bY - 1 -- the first pair of buttons are lower on an arcade stick
    bX = bX + 5
    -- X/Medium Punch
    if (joypad.get(playerSlot )["X"]) then
-      gui.drawEllipse(bX, bY, 3, 3, sfdraw.yellow, sfdraw.yellow)
+      gui.drawEllipse(bX, bY, 3, 3, SFDraw.YELLOW, SFDraw.YELLOW)
    else
-      gui.drawEllipse(bX, bY, 3, 3, sfdraw.black, sfdraw.black)
+      gui.drawEllipse(bX, bY, 3, 3, SFDraw.BLACK, SFDraw.BLACK)
    end
    
    -- A/Medium Kick
    if (joypad.get(playerSlot )["A"]) then
-      gui.drawEllipse(bX, bY+5, 3, 3, sfdraw.yellow, sfdraw.yellow)
+      gui.drawEllipse(bX, bY+5, 3, 3, SFDraw.YELLOW, SFDraw.YELLOW)
    else
-      gui.drawEllipse(bX, bY+5, 3, 3, sfdraw.black, sfdraw.black)
+      gui.drawEllipse(bX, bY+5, 3, 3, SFDraw.BLACK, SFDraw.BLACK)
    end
    
    bX = bX + 5
    -- L/Heavy Punch
    if (joypad.get(playerSlot )["L"]) then
-      gui.drawEllipse(bX, bY, 3, 3, sfdraw.red, sfdraw.red)
+      gui.drawEllipse(bX, bY, 3, 3, SFDraw.RED, SFDraw.RED)
    else
-      gui.drawEllipse(bX, bY, 3, 3, sfdraw.black, sfdraw.black)
+      gui.drawEllipse(bX, bY, 3, 3, SFDraw.BLACK, SFDraw.BLACK)
    end
    
    -- R/Heavy Kick
    if (joypad.get(playerSlot )["R"]) then
-      gui.drawEllipse(bX, bY+5, 3, 3, sfdraw.red, sfdraw.red)
+      gui.drawEllipse(bX, bY+5, 3, 3, SFDraw.RED, SFDraw.RED)
    else
-      gui.drawEllipse(bX, bY+5, 3, 3, sfdraw.black, sfdraw.black)
+      gui.drawEllipse(bX, bY+5, 3, 3, SFDraw.BLACK, SFDraw.BLACK)
    end
 
 end
@@ -103,11 +103,11 @@ end
 --                       position.)
 -- @param  name          The string to be drawn.
 -----------------------------------------------------------------------------
-function sfdraw.drawName(playerSlot, name)
+function SFDraw.drawName(playerSlot, name)
    local nameX = ((playerSlot==1) and 30 or 226)
    local textAlign = ((playerSlot==1) and "left" or "right")
    
-   -- text shadow sfdraw.n first
-   gui.drawText(nameX+1,57, name, sfdraw.black, 0x00000000, 12, "Times New Roman", "bold", textAlign, "bottom")
-   gui.drawText(nameX,56, name, sfdraw.yellow, 0x00000000, 12, "Times New Roman", "bold", textAlign, "bottom")
+   -- text shadow SFDraw.n first
+   gui.drawText(nameX+1,57, name, SFDraw.BLACK, 0x00000000, 12, "Times New Roman", "bold", textAlign, "bottom")
+   gui.drawText(nameX,56, name, SFDraw.YELLOW, 0x00000000, 12, "Times New Roman", "bold", textAlign, "bottom")
 end
