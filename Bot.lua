@@ -20,7 +20,8 @@ function Bot.new(playerSlot)
    local self = {}
    setmetatable(self, Bot_mt)
    
-   assert(playerSlot==1 or playerSlot==2, "Player slot " .. playerSlot .. " is not valid.")
+   assert(playerSlot==1 or playerSlot==2,
+      "Player slot " .. playerSlot .. " is not valid.")
    
    self.playerSlot = playerSlot
    self.pad = {}

@@ -73,11 +73,14 @@ end
 function Bert:advance()   
    self.i = self.i + 1
  
-   if self:isOpponentAttacking() and not self:isOpponentAir() then   -- if enemy is attacking and on the ground
-      if self.newAttack and self:getDistance() < 0x24 then  -- if enemy is close and they weren't attacking last frame
+   if self:isOpponentAttacking() and not self:isOpponentAir() then
+   -- if enemy is attacking and on the ground
+   
+      if self.newAttack and self:getDistance() < 0x24 then
+      -- if enemy is close and they weren't attacking last frame
          self:dragonPunch()
          self.action = "ume shoryken"
-      elseif self:hasOpponentFireball() then -- counter fireball with the same
+      elseif self:hasOpponentFireball() then-- counter fireball with the same
          self:fireball()
          self.action = "counter fireball"
       else  -- they are far away or this isn't the first frame of the attack
@@ -102,7 +105,8 @@ function Bert:advance()
             self.i = -1
          end
       else  -- they are far away
-         if not self:hasFireball() and not self:isOpponentAir() then -- there isn't a fireball and p2 is on the ground
+         if not self:hasFireball() and not self:isOpponentAir() then
+         -- there isn't a fireball and p2 is on the ground
             if self.walkTimer <= 0 then   -- we weren't walking too recently
                self:fireball()
                self.action = "fireball"
@@ -119,4 +123,3 @@ function Bert:advance()
       end
    end
 end
-
