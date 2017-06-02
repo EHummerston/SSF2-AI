@@ -6,17 +6,22 @@
 -- 2017 Edward Hummerston, Michael Siers
 -----------------------------------------------------------------------------
 
+require("PadQueue")
+
 Bot = {}
 local Bot_mt = {__index = Bot}
 
 -----------------------------------------------------------------------------
 -- Constructor, initialises class variables.
 --
--- @param playerSlot    The controller port to represent that the algorithm
---                       will occupy
--- @return               An instance of the created object
+-- @param playerSlot     The controller port to represent that the algorithm
+--                       will occupy.
+-- @param inputDelay     The intended length of the controller list - the
+--                       number of frames between an input being commited by
+--                       an algorithm and that input occurring in-game.
+-- @return               An instance of the created object.
 -----------------------------------------------------------------------------
-function Bot.new(playerSlot)
+function Bot.new(playerSlot, inputDelay)
    local self = {}
    setmetatable(self, Bot_mt)
    
@@ -27,6 +32,11 @@ function Bot.new(playerSlot)
    self.pad = {}
    self.name = ""
    self.action = ""
+   
+   self.padq = PadQueue.new()
+   for i=1,inputDelay do
+      self.padq:enqueue({})
+   end
    
    return self
 end
@@ -48,13 +58,14 @@ function Bot:resetPad()
 end
 
 -----------------------------------------------------------------------------
--- Returns the player slot given at initialisation.
+-- Returns the first controller state in the input delay queue.
 --
 -- @return               The controller table, formatted to be input to the
 --                       Bizhawk emulator.
 -----------------------------------------------------------------------------
 function Bot:getPad()
-   return self.pad
+   self.padq:enqueue(self.pad)
+   return self.padq:dequeue()
 end
 
 -----------------------------------------------------------------------------

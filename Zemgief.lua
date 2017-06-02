@@ -19,7 +19,7 @@ local Zemgief_mt = {__index = Zemgief}
 -- @return self          An instance of the created object
 -----------------------------------------------------------------------------
 function Zemgief.new(playerSlot)
-   local self = Bot.new(playerSlot)
+   local self = Bot.new(playerSlot, 0)
    setmetatable(self, Zemgief_mt)
    
    self.name = "ZEMgief"
