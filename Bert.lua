@@ -34,16 +34,18 @@ end
 -- command.
 -----------------------------------------------------------------------------
 function Bert:fireball()
-   if self.i == 0 then -- down
+   if self.i < 3 then -- down
       self:setButton("Down",true)
-   elseif self.i == 1 then -- down forward
+   elseif self.i < 6 then -- down forward
       self:setButton("Down",true)
       self:setButton(self:getDirectionButton(true),true)
-   elseif self.i == 2 then -- forward + punch
+   elseif self.i < 9 then -- forward
       self:setButton(self:getDirectionButton(true),true)
-      self:setButton("X",true)   
+   elseif self.i < 12 then -- forward + puinch
+      self:setButton(self:getDirectionButton(true),true)
+      self:setButton("X",true)      
    -- Long buffer to prevent accidental Shoryuken commands
-   elseif self.i > 15 then
+   elseif self.i > 30 then
       self.i = -1
    end
 end
@@ -53,15 +55,15 @@ end
 -- command.
 -----------------------------------------------------------------------------
 function Bert:dragonPunch()
-   if self.i == 0 then  -- forward
+   if self.i < 3 then  -- forward
       self:setButton(self:getDirectionButton(true),true)
-   elseif self.i == 1 then -- down
+   elseif self.i < 6 then -- down
       self:setButton("Down",true)
-   elseif self.i == 2 then -- down forward + punch
+   elseif self.i < 9 then -- down forward + punch
       self:setButton("Down",true)
       self:setButton(self:getDirectionButton(true),true)
       self:setButton("L",true)
-   elseif self.i > 2 then
+   elseif self.i > 12 then
       self.i = -1
    end
 end
@@ -73,6 +75,10 @@ end
 function Bert:advance()   
    self.i = self.i + 1
  
+   if self:isAttacking() then
+      return
+   end
+   
    if self:isOpponentAttacking() and not self:isOpponentAir() then
    -- if enemy is attacking and on the ground
    
