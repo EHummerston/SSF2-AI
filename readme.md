@@ -10,7 +10,7 @@ This framework was created to facilitate the ability for multiple people to crea
 
 * The technical simplicity of the game.
 * It can be emulated on the BizHawk emulator, which itself has good coding support.
-* The high-depth, low-complexity gameplay.
+* Its high-depth, low-complexity gameplay.
 * The wide amount of theory on its metagame and systems.
 
 ## Installation
