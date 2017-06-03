@@ -12,8 +12,8 @@ require("SFDraw")
 
 debugUI = true -- console outputs and extra text within emulator space
 
-botOne = null
-botTwo = null
+botOne = nil
+botTwo = nil
 
 botOne = Bert.new(1)
 botTwo = Bert.new(2)
@@ -21,29 +21,29 @@ botTwo = Bert.new(2)
 while true do  -- loop once per frame
 
    -- erase input values from previous frame
-   if(botOne ~= null) then
+   if(botOne ~= nil) then
       botOne:resetPad()
    end
-   if(botTwo ~= null) then
+   if(botTwo ~= nil) then
       botTwo:resetPad()
    end
    
    -- this memory value is currently incorrect.
    if memory.read_u8(0x10083) == 0x0 then -- if the game is in a fight state
       -- algorithms resolve their controller states
-      if(botOne ~= null) then
+      if(botOne ~= nil) then
          botOne:advance()
       end
-      if(botTwo ~= null) then
+      if(botTwo ~= nil) then
          botTwo:advance()
       end
    end
    
    -- convert separate player input tables to Bizhawk table
    pads = {}
-   if(botOne ~= null) then
+   if(botOne ~= nil) then
       pads = botOne:getPad()
-      if(botTwo ~= null) then
+      if(botTwo ~= nil) then
          botTwoPad = botTwo:getPad()
 
          -- append first table with the second, formatting is already correct
@@ -51,7 +51,7 @@ while true do  -- loop once per frame
             pads[k] = v
          end
       end
-   elseif(botTwo ~= null) then
+   elseif(botTwo ~= nil) then
       pads = botTwo:getPad()
    end
    
@@ -59,13 +59,13 @@ while true do  -- loop once per frame
    joypad.set(pads)
 
    -- p1 info
-   if(botOne ~= null) then
+   if(botOne ~= nil) then
       SFDraw.drawName(1, botOne:getName())
       SFDraw.drawPad(1)
    end
    
    -- p2 info
-   if(botTwo ~= null) then
+   if(botTwo ~= nil) then
       SFDraw.drawName(2, botTwo:getName())
       SFDraw.drawPad(2)
    end
@@ -77,10 +77,10 @@ while true do  -- loop once per frame
       
       
       -- action print
-      if(botOne ~= null) then
+      if(botOne ~= nil) then
          gui.pixelText(4,8,botOne:getAction())
       end
-      if(botTwo ~= null) then
+      if(botTwo ~= nil) then
          gui.pixelText(148,8,botTwo:getAction())
       end
       
