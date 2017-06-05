@@ -6,7 +6,7 @@
 -- 2017 Edward Hummerston, Michael Siers
 -----------------------------------------------------------------------------
 
-require("PadQueue")
+require("SSF2-AI.PadQueue")
 
 Bot = {}
 local Bot_mt = {__index = Bot}

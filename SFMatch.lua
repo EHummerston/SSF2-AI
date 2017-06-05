@@ -6,7 +6,7 @@
 -- 2017 Edward Hummerston
 -----------------------------------------------------------------------------
 
-require("SFDraw")
+require("SSF2-AI.SFDraw")
 
 SFMatch = {}
 
