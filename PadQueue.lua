@@ -39,7 +39,7 @@ function PadQueue:dequeue ()
       error("List is empty")
    end
    local value = self[first]
-   self[first] = nil        -- to allow garbage collection
+   self[first] = nil -- to allow garbage collection
    self.first = first + 1
    return value
 end

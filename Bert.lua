@@ -34,12 +34,12 @@ end
 -- command.
 -----------------------------------------------------------------------------
 function Bert:fireball()
-   if self.i < 3 then -- down
+   if self.i < 3 then   -- down
       self:setButton("Down",true)
-   elseif self.i < 6 then -- down forward
+   elseif self.i < 6 then  -- down forward
       self:setButton("Down",true)
       self:setButton(self:getDirectionButton(true),true)
-   elseif self.i < 9 then -- forward
+   elseif self.i < 9 then  -- forward
       self:setButton(self:getDirectionButton(true),true)
    elseif self.i < 12 then -- forward + puinch
       self:setButton(self:getDirectionButton(true),true)
