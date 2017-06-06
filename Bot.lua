@@ -96,12 +96,34 @@ function Bot:advance()
 end
 
 -----------------------------------------------------------------------------
--- Sets a given button on the class' controller to a given state.
+-- Sets a given button on the class' controller to a given state. Accepts
+-- SNES button names (Y, X, L, B, A, L) or Street Fighter button names (LP,
+-- MP, HP, LK, MK, HK). Also accepts "BACK", "BACKWARD" and "TOWARD".
 --
 -- @param button         The joypad button to be manipulated.
 -- @param state          Boolean state for the button to be set to.
 -----------------------------------------------------------------------------
 function Bot:setButton(button,state)
+   
+   if button == "BACK" or button == "BACKWARD" then
+      button = self:getDirectionButton(false)
+   elseif button == "TOWARD" then
+      button = self:getDirectionButton(true)
+      
+   elseif button == "LP" then
+      button = "Y"
+   elseif button == "MP" then
+      button = "X"
+   elseif button == "HP" then
+      button = "L"
+      
+   elseif button == "LK" then
+      button = "B"
+   elseif button == "MK" then
+      button = "A"
+   elseif button == "HK" then
+      button = "L"
+   end
    self.pad[string.format("P%i %s", self.playerSlot, button)] = state
 end
 
