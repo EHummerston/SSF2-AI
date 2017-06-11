@@ -79,7 +79,10 @@ function SFMatch.run (botOne, botTwo)
             gui.pixelText(148,8,botTwo:getAction())
          end
          
-         gui.pixelText(122,23,tostring(memory.read_u8(0x5EB))) -- distance
+         local distance = memory.read_u8(0x5EB)
+         gui.pixelText(122,23,tostring(distance)) -- distance
+         gui.drawLine(127 - distance/2, 200, distance/2 + 128, 200)
+         gui.drawLine(127,199,128,199)
          
          gui.pixelText(16,35,tostring(memory.read_u8(0x530)))  -- p1 health
          gui.pixelText(227,35,tostring(memory.read_u8(0x770))) -- p2 health
