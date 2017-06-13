@@ -105,9 +105,9 @@ end
 -----------------------------------------------------------------------------
 function Bot:setButton(button,state)
    
-   if button == "BACK" or button == "BACKWARD" then
+   if button == "Back" or button == "Backward" then
       button = self:getDirectionButton(false)
-   elseif button == "TOWARD" then
+   elseif button == "Toward" then
       button = self:getDirectionButton(true)
       
    elseif button == "LP" then
