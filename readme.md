@@ -25,7 +25,7 @@ For examples of the implementation of the SSF2-AI framework, go to the [SSF2-AI-
 
 1. Extend the `Bot` class.
 2. Implement the `advance()` function and write out how the algorithm should determine controller inputs for each frame.
-3. Reference your own class in the initialisation of the `main` code.
+3. Reference your own class and call `SFMatch.run()` in a run script.
 
 For examples of the implementation of the SSF2-AI framework, go to the [SSF2-AI-Demos](https://github.com/EHummerston/SSF2-AI-Demos) repository.
 
