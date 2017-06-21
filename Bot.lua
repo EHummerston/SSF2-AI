@@ -32,6 +32,7 @@ function Bot.new(playerSlot, inputDelay)
    self.pad = {}
    self.name = ""
    self.action = ""
+   self.inputDelay = inputDelay
    
    self.padq = PadQueue.new()
    for i=1,inputDelay do
@@ -298,4 +299,58 @@ function Bot:hasOpponentFireball()
    else
       return memory.read_u8(0x837) ~= 0
    end
+end
+
+-----------------------------------------------------------------------------
+-- Returns the x and y coordinates of this player.
+--
+-- @return               A table with x and y values for this player's
+--                       position. X value is this player's distance from the
+--                       wall behind them. Y value is the distance from the
+--                       ground.
+-----------------------------------------------------------------------------
+function Bot:getAbsolutePosition()
+   local xyReturn = {x = 0, y = 0}
+   if self.playerSlot % 2 == 1 then
+      xyReturn.x = memory.read_s16_le(0x5F7)
+      xyReturn.y = 192 - memory.read_u8(0x50A)
+   else
+      xyReturn.x = memory.read_s16_le(0x837)
+      xyReturn.y = 192 - memory.read_u8(0x74A)
+   end
+   
+   if(self:isFacingRight()) then
+      xyReturn.x = xyReturn.x - 53
+   else
+      xyReturn.x = 459 - xyReturn.x
+   end
+   
+   return xyReturn
+end
+
+-----------------------------------------------------------------------------
+-- Returns the x and y coordinates of the opponent.
+--
+-- @return               A table with x and y values for this player's
+--                       position. X value is the opponent's distance from the
+--                       wall behind THIS player. Y value is the distance from
+--                       the ground.
+-----------------------------------------------------------------------------
+function Bot:getOpponentAbsolutePosition()
+   local xyReturn = {x = 0, y = 0}
+   if (self.playerSlot + 1) % 2 == 1 then
+      xyReturn.x = memory.read_s16_le(0x507)
+      xyReturn.y = 192 - memory.read_u8(0x50A)
+   else
+      xyReturn.x = memory.read_s16_le(0x747)
+      xyReturn.y = 192 - memory.read_u8(0x74A)
+   end
+   
+   if(self:isFacingRight()) then
+      xyReturn.x = xyReturn.x - 53
+   else
+      xyReturn.x = 459 - xyReturn.x
+   end
+   
+   return xyReturn
 end
