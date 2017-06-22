@@ -22,7 +22,7 @@ SFDraw.TEXT = 0xfff78746
 -- @param  playerSlot    The controller port to represent. (Also determines
 --                       drawn position.)
 -----------------------------------------------------------------------------
-function SFDraw.drawPad(playerSlot)
+function SFDraw.drawPad(playerSlot, pads)
    local bX = ((playerSlot==1) and 79 or 151)   -- left side of control display
    local bY = 47  -- top of control display
    gui.drawEllipse(bX,bY,8,8, SFDraw.BLACK) -- circle of joystick base
@@ -30,15 +30,15 @@ function SFDraw.drawPad(playerSlot)
       2, 2, SFDraw.BLACK, SFDraw.BLACK)  -- joystick shaft base
    
    local pY = 0   -- player Y-axis input
-   if (joypad.get(playerSlot)["Up"]) then
+   if (pads["P" .. playerSlot .. " Up"]) then
       pY = -1
-   elseif (joypad.get(playerSlot )["Down"]) then
+   elseif (pads["P" .. playerSlot .. " Down"]) then
       pY = 1
    end
    local pX = 0   -- player X-axis input
-   if (joypad.get(playerSlot )["Left"]) then
+   if (pads["P" .. playerSlot .. " Left"]) then
       pX = -1
-   elseif (joypad.get(playerSlot )["Right"]) then
+   elseif (pads["P" .. playerSlot .. " Right"]) then
       pX = 1
    end
    gui.drawPixel(bX+4 + pX,bY + 4 + pY, SFDraw.BLACK)   -- joystick shaft
@@ -51,14 +51,14 @@ function SFDraw.drawPad(playerSlot)
    
    bX = bX + 12
    -- Y/Light Punch
-   if (joypad.get(playerSlot )["Y"]) then
+   if (pads["P" .. playerSlot .. " Y"]) then
       gui.drawEllipse(bX, bY, 3, 3, SFDraw.BLUE, SFDraw.BLUE)
    else
       gui.drawEllipse(bX, bY, 3, 3, SFDraw.BLACK, SFDraw.BLACK)
    end
    
    -- B/Light Kick
-   if (joypad.get(playerSlot )["B"]) then
+   if (pads["P" .. playerSlot .. " B"]) then
       gui.drawEllipse(bX, bY+5, 3, 3, SFDraw.BLUE, SFDraw.BLUE)
    else
       gui.drawEllipse(bX, bY+5, 3, 3, SFDraw.BLACK, SFDraw.BLACK)
@@ -67,14 +67,14 @@ function SFDraw.drawPad(playerSlot)
    bY = bY - 1 -- the first pair of buttons are lower on an arcade stick
    bX = bX + 5
    -- X/Medium Punch
-   if (joypad.get(playerSlot )["X"]) then
+   if (pads["P" .. playerSlot .. " X"]) then
       gui.drawEllipse(bX, bY, 3, 3, SFDraw.YELLOW, SFDraw.YELLOW)
    else
       gui.drawEllipse(bX, bY, 3, 3, SFDraw.BLACK, SFDraw.BLACK)
    end
    
    -- A/Medium Kick
-   if (joypad.get(playerSlot )["A"]) then
+   if (pads["P" .. playerSlot .. " A"]) then
       gui.drawEllipse(bX, bY+5, 3, 3, SFDraw.YELLOW, SFDraw.YELLOW)
    else
       gui.drawEllipse(bX, bY+5, 3, 3, SFDraw.BLACK, SFDraw.BLACK)
@@ -82,14 +82,14 @@ function SFDraw.drawPad(playerSlot)
    
    bX = bX + 5
    -- L/Heavy Punch
-   if (joypad.get(playerSlot )["L"]) then
+   if (pads["P" .. playerSlot .. " L"]) then
       gui.drawEllipse(bX, bY, 3, 3, SFDraw.RED, SFDraw.RED)
    else
       gui.drawEllipse(bX, bY, 3, 3, SFDraw.BLACK, SFDraw.BLACK)
    end
    
    -- R/Heavy Kick
-   if (joypad.get(playerSlot )["R"]) then
+   if (pads["P" .. playerSlot .. " R"]) then
       gui.drawEllipse(bX, bY+5, 3, 3, SFDraw.RED, SFDraw.RED)
    else
       gui.drawEllipse(bX, bY+5, 3, 3, SFDraw.BLACK, SFDraw.BLACK)

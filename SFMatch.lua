@@ -10,9 +10,7 @@ require("SSF2-AI.SFDraw")
 
 SFMatch = {}
 
-debugUI = true -- console outputs and extra text within emulator space
-
-function SFMatch.run (botOne, botTwo)
+function SFMatch.run (botOne, botTwo, debugUI)
    while true do  -- loop once per frame
 
       -- erase input values from previous frame
@@ -56,13 +54,17 @@ function SFMatch.run (botOne, botTwo)
       -- p1 info
       if(botOne ~= nil) then
          SFDraw.drawName(1, botOne:getName())
-         SFDraw.drawPad(1)
+         SFDraw.drawPad(1, pads)
+      else
+         SFDraw.drawPad(1, joypad.getimmediate())
       end
       
       -- p2 info
       if(botTwo ~= nil) then
          SFDraw.drawName(2, botTwo:getName())
-         SFDraw.drawPad(2)
+         SFDraw.drawPad(2, pads)
+      else
+         SFDraw.drawPad(2, joypad.getimmediate())
       end
       
       if(debugUI) then
@@ -70,23 +72,25 @@ function SFMatch.run (botOne, botTwo)
          gui.pixelText(4,0,"atk " .. tostring(memory.read_u8(0x5E9) == 0x1))
          gui.pixelText(148,0,"atk " .. tostring(memory.read_u8(0x829) == 0x1))
          
-         
          -- action print
          if(botOne ~= nil) then
-            gui.pixelText(4,8,botOne:getAction())
+            gui.pixelText(4,7,botOne:getAction())
          end
          if(botTwo ~= nil) then
-            gui.pixelText(148,8,botTwo:getAction())
+            gui.pixelText(148,7,botTwo:getAction())
          end
-         
-         local distance = memory.read_u8(0x5EB)
-         gui.pixelText(122,23,tostring(distance)) -- distance
-         gui.drawLine(127 - distance/2, 200, distance/2 + 128, 200)
-         gui.drawLine(127,199,128,199)
          
          gui.pixelText(16,35,tostring(memory.read_u8(0x530)))  -- p1 health
          gui.pixelText(227,35,tostring(memory.read_u8(0x770))) -- p2 health
-      
+         
+         -- distance bars
+         local distance = memory.read_u8(0x5EB)
+         gui.pixelText(122,202,tostring(distance))
+         gui.drawLine(127 - distance/2, 200, distance/2 + 128, 200)
+         gui.drawLine(127,199,128,199)
+         local distance2 = memory.read_s16_le(0x747) - memory.read_s16_le(0x507)
+         gui.drawLine(127 - distance2/2, 201, distance2/2 + 128, 201)
+         
       end
       
       -- emulator resolves cycle
