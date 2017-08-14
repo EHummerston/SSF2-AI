@@ -1,0 +1,14 @@
+{
+  "name": "ssf2",
+  "version": "1.0.0",
+  "description": "Website to respresent the SSF2-AI Framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Edward Hummerston",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.0.0-beta"
+  }
+}
