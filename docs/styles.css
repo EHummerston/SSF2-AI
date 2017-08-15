@@ -48,6 +48,14 @@
     animation-direction: alternate;
 }
 
+.split-section-text {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(title.png);
+    color: #fff;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
 @keyframes intro-text-flicker {
     from {
         color: #ff0000;
